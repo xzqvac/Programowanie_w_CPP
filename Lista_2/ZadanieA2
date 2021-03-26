@@ -1,1 +1,58 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+
+int comparator(const void * a, const void * b)
+{
+    const std::string * sa = *static_cast<const std::string * const *>(a); //TO JEST WSKAZNIK NA STRING
+    const std::string * sb = *static_cast<const std::string * const *>(b); //string.length() to prosze pamietac, ze operator * i . maja rozna precedence, potrzebny nawias lub ->
+    int lena = sa->length();
+    int lenb = sb->length();
+    if(lena != lenb)
+        return lena - lenb;
+    else
+        return sa->compare(*sb);
+}
+
+void print_array_of_strings(std::string t[], size_t size)
+{
+    for(size_t i=0; i<size; i++)
+        std::cout << t[i] << "\t";
+    std::cout << std::endl;
+}
+
+int main()
+{
+    std::string tab[] = {"r", "ra", "radek","7","1","ma","mb"};
+    size_t size = sizeof(tab)/sizeof(*tab);
+
+    //tworzymy tablice wskaznikow na stringi
+    //to jest niezgodne (ale proste) ze standardem jezyka (dla g++ zobacz flage -pedantic)
+    //std::string * ptab[size];
+    //zamiast tego trzeba dynamicznie alokowac tablice (co jest trudne) *albo* uzywac std::vector<std::string *>
+
+    std::string ** ptab = new std::string* [size];
+    for(size_t i=0; i<size; i++)
+        ptab[i] = &tab[i];
+
+    /*for(size_t i=0; i<size;i++)
+        std::cout << *ptab[i] << std::endl;*/
+
+    // trzeba zawolac funkcje qsort zeby posortowala tablice ptab
+    std::qsort(ptab, size, sizeof(*ptab), comparator);
+    // w tym miejscu tablica ptab bedzie juz posortowana (gdy napiszemy poprawnie funkcje comparator!)
+
+    //to jest niezgodne ze standardem jezyka
+    //std::string result[size];
+    std::string * result = new std::string[size];
+    for(size_t i=0; i<size; i++)
+        result[i] = *ptab[i];
+
+    print_array_of_strings(tab, size);
+    print_array_of_strings(result, size);
+
+    //jezeli uzywamy std::string result[size] to delete trzeba usunac
+    delete[] ptab;
+    delete[] result;
+}
 
