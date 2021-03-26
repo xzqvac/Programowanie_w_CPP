@@ -1,1 +1,92 @@
+#include <iostream>
+#include <valarray>
+
+int sumaA(const int tab[], unsigned size)
+{
+    int suma = 0;
+    for(int i=0;i<=size;i++)
+    {
+        suma += tab[i];
+    }
+    return suma;
+}
+
+void sumaB(const int tab[], unsigned size, int *result)
+{
+    for(int i=0;i<=size;i++)
+    {
+        *result += tab[i];
+    }
+}
+
+void pisz(const int* tab, size_t size, std::ostream & out)
+{
+    int suma = 0;
+    for(size_t i=0;i<=size;i++)
+    {
+        suma += tab[i];
+    }
+    out <<"Wynik podpunktu c: "<< suma << std::endl;
+}
+
+void iota(int tab[], unsigned size)
+{
+    for(int i=0; i<=size-1;i++)
+    {
+        tab[i] = i;
+    }
+}
+
+void reverse(int *tab, size_t size)
+{
+        for(size_t i=0; i < size/2; i++)
+        {
+           int temp = *(tab + size - 1 - i);
+           *(tab + size - 1 - i) = *(tab + i);
+           *(tab + i) = temp;
+        }
+}
+
+int dot_product(const int* tab1, const int* tab2, size_t size)
+{
+    int iloczyn = 0;
+    for(size_t i=0;i<size;i++)
+    {
+        iloczyn += *(tab1+i) * *(tab2+i);
+    }
+    return iloczyn;
+}
+
+int main() {
+    int tab[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int tabd[5] = {};
+
+    int tab1[] = {1,2,3};
+    int tab2[] = {4,5,6};
+    std::cout <<"Wynik podpunktu a: " << sumaA(tab, 3) << std::endl;
+
+    int suma = 0;
+    sumaB(tab, 3, &suma);
+    std::cout <<"Wynik podpunktu b: " << suma << std::endl;
+
+    pisz(tab, 3, std::cout);
+
+    iota(tabd, 5);
+    for(int i=0;i<5;i++)
+    {
+        std::cout << tabd[i] << ", ";
+    }
+    std::cout<<std::endl;
+
+
+    reverse(tab, 7);
+    for(int i = 0; i<10;i++)
+    {
+        std::cout << tab[i] << std::endl;
+    }
+
+    std::cout <<"Iloczyn " << dot_product(tab1, tab2, 3) << std::endl;
+
+    return 0;
+}
 
