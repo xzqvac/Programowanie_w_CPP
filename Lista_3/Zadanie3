@@ -1,0 +1,54 @@
+#include <iostream>
+struct Link {
+    int value;
+    Link* next = nullptr;
+};
+
+void add(Link** head, int n)
+{
+    Link* tmp = new Link;
+    tmp->value = n;
+    tmp->next = *head;
+    *head = tmp;
+}
+
+void print(const Link* head)  // implementacja rekurencyjna
+{
+    if (head == nullptr) return;
+
+    std::cout << head->value << " ";
+    print(head->next);
+}
+
+void reverse(Link** phead)
+{
+    Link* current = *phead;
+    Link* prev = nullptr;
+    Link* next;
+
+    while (current != nullptr) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    *phead = prev;
+}
+
+int main()
+{
+    Link* lista = nullptr;
+    add(&lista, 23);
+    add(&lista, 24);
+    add(&lista, 25);
+
+    print(lista);
+
+    reverse(&lista);
+
+    std::cout<<"\n";
+    print(lista);
+
+
+    return 0;
+}
