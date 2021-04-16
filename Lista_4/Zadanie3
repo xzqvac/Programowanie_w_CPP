@@ -1,0 +1,20 @@
+#include <iostream>
+#include <cstdlib>
+#include <string.h>
+
+int main(int argc, const char* argv[]) {
+    //std::cout << "argc = " << argc << "\n";
+    int suma = 0;
+    for (int i = 0; i < argc; i++)
+    {
+        if ((strcmp(argv[i], "--help") == 0) || (strcmp(argv[i], "-h") == 0))
+        {
+            std::cout << "Program do sumowania" << std::endl;
+            return 0;
+        }
+        else
+            suma += atoi(argv[i+1]);
+    }
+    std::cout << "Suma = " << suma <<std::endl;
+    return 0;
+}
