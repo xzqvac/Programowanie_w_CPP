@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+
+
+class Vec
+{
+private:
+    std::vector<double> v;
+
+public:
+    Vec(std::vector<double> v) {
+        this->v = v;
+    }
+
+    double at(int i) const {
+        return v.at(i);
+    }
+
+    double operator*(const Vec& other){
+        double result = 0.0;
+
+        for (int i = 0; i< v.size(); i++) {
+            result += v.at(i) * other.at(i);
+        }
+
+        return result;
+    }
+};
+
+
+int main() {
+    std::vector<double> v1 = {1, 2, 3};
+    Vec vec1(v1);
+    std::vector<double> v2 = {4, 5, 6};
+    Vec vec2(v2);
+
+    double result = vec1 * vec2; //  vec1.operator*(vec2);
+    std::cout << result;
+
+    return 0;
+}
