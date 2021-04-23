@@ -1,0 +1,41 @@
+#include <iostream>
+#include <math.h>
+
+double f(double x)
+{
+    return cos(x)-0.5;
+}
+
+double find_root(double (*f)(double), double a, double b, double tolerance = 0.0000001)
+{
+    if(f(a) * f(b) > 0.0) // warunek konieczny
+    {
+        std::cout << "Funkcja nie przyjmuje roznych znakow na koncach przedzialu" << std::endl;
+        return 0;
+    }
+    //miejsce zerowe na brzegach przedzialu
+    if(f(a) == 0.0)
+        return a;
+    if(f(b) == 0.0)
+        return b;
+
+    double center;
+
+    while(b - a > tolerance)
+    {
+        center = (a+b)/2;
+        if(f(center) == 0.0)
+            return center;
+        if(f(a) * f(center) < 0)
+            b = center;
+        else
+            a = center;
+    }
+    return (a+b)/2;
+}
+
+int main() {
+    std::cout<<find_root(cos,0,2)<<std::endl;
+    std::cout<<find_root(f,0,1.5)<<std::endl;
+    return 0;
+}
