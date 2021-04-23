@@ -1,7 +1,12 @@
 #include <iostream>
 #include <math.h>
 
-double f(double x)
+double f1(double x)
+{
+    return cos(x)-x;
+}
+
+double f2(double x)
 {
     return cos(x)-0.5;
 }
@@ -35,7 +40,7 @@ double find_root(double (*f)(double), double a, double b, double tolerance = 0.0
 }
 
 int main() {
-    std::cout<<find_root(cos,0,2)<<std::endl;
-    std::cout<<find_root(f,0,1.5)<<std::endl;
+    std::cout<<find_root(f1,0,2)<<std::endl;
+    std::cout<<find_root(f2,0,1.5)<<std::endl;
     return 0;
 }
