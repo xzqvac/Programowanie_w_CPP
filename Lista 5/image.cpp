@@ -63,9 +63,6 @@ void Image::save_as(const std::string& filename)
 
 void Image::add_watermark()
 {
-    std::cout<<"Wysokosc:"<<my_height<<std::endl;
-    std::cout<<"Szerokosc:"<<my_width<<std::endl;
-
     for(int i=my_height-331; i<my_height-100; i++)
     {
         for (int j=my_width-224; j<my_width-30; j++)
@@ -75,7 +72,6 @@ void Image::add_watermark()
                 pixels[i][j].blue = 12;
         }
     }
-
 }
 
 void Image::blurr()
@@ -397,9 +393,9 @@ void Image::sepia()
     {
         for (int j = 0; j < my_width; j++)
         {
-            pixels[i][j].red = (unsigned char)round((pixels[i][j].red * 162 / 255));
-            pixels[i][j].green = (unsigned char)round((pixels[i][j].green * 128 / 255));
-            pixels[i][j].blue = (unsigned char)round((pixels[i][j].blue * 101 / 255));
+            pixels[i][j].red = round((pixels[i][j].red * 162 / 255));
+            pixels[i][j].green = round((pixels[i][j].green * 128 / 255));
+            pixels[i][j].blue = round((pixels[i][j].blue * 101 / 255));
         }
     }
 }
@@ -407,33 +403,74 @@ void Image::sepia()
 void Image::shrink()
 {
     std::vector<std::vector<RGB>> temp;
-    temp.resize(my_height);
+    temp.resize((my_height - 1) * 0.5);
 
     for (auto& line : temp) {
-        line.resize(my_width);
+        line.resize(my_width * 0.5);
     }
     int avgred = 0;
     int avggreen = 0;
     int avgblue = 0;
 
-    for (double i = 0.0; i < 0.5 * my_height; i = i + 0.5)
+    for (double i = 0; i < my_height - 1; i++) //  my_height - 1 poniewaz wysokosc obraza jest liczba nieparzysta
     {
-        for(double j = 0.0; j < 0.5 * my_width; j = j + 0.5)
+        for(double j = 0; j < my_width; j++)
         {
-            if(i >= 0.5 && j >= 0.5 && i <= 0.5 * my_height - 0.5 && j <= 0.5 * my_width - 0.5)
+            if(i == 0 && j == 0)
             {
-                avgred = round((pixels[i][j - 0.5].red + pixels[i + 0.5][j].red + pixels[i][j + 0.5].red + pixels[i - 0.5][j].red) / 4);
-                avggreen = round((pixels[i][j - 0.5].green + pixels[i + 0.5][j].green + pixels[i][j + 0.5].green + pixels[i - 0.5][j].green) / 4);
-                avgblue = round((pixels[i][j - 0.5].blue + pixels[i + 0.5][j].blue + pixels[i][j + 0.5].blue + pixels[i - 0.5][j].blue) / 4);
+                avgred = round((pixels[i][j + 1].red + pixels[i + 1][j].red) / 2);
+                avggreen = round((pixels[i][j + 1].green + pixels[i + 1][j].green) / 2);
+                avgblue = round((pixels[i][j + 1].blue + pixels[i + 1][j].blue) / 2);
 
                 temp[i][j].red = avgred;
                 temp[i][j].green = avggreen;
                 temp[i][j].blue = avgblue;
             }
-        }
+
+            else if(i >= 1 && j >= 1 && i <= my_height - 1 && j <= my_width - 1)
+            {
+                avgred = round((pixels[i][j - 1].red + pixels[i - 1][j].red + pixels[i][j + 1].red + pixels[i + 1][j].red) / 4);
+                avggreen = round((pixels[i][j - 1].green + pixels[i - 1][j].green + pixels[i][j + 1].green + pixels[i + 1][j].green) / 4);
+                avgblue = round((pixels[i][j - 1].blue + pixels[i - 1][j].blue + pixels[i][j + 1].blue + pixels[i + 1][j].blue) / 4);
+
+                temp[i/2][j/2].red = avgred;
+                temp[i/2][j/2].green = avggreen;
+                temp[i/2][j/2].blue = avgblue;
+            }
+
+            else if(i == 0 && j == my_width -1)
+            {
+                tempred = pixels[i+1][j].red + pixels[i+1][j-1].red + pixels[i][j-1].red + pixels[i][j].red;
+                tempgreen = pixels[i+1][j].green + pixels[i+1][j-1].green + pixels[i][j-1].green + pixels[i][j].green;
+                tempblue = pixels[i+1][j].blue + pixels[i+1][j-1].blue + pixels[i][j-1].blue + pixels[i][j].blue;
+
+                pixels[i][j].red = (unsigned char)round(tempred / 4);
+                pixels[i][j].green = (unsigned char)round(tempgreen / 4);
+                pixels[i][j].blue = (unsigned char)round(tempblue / 4);
+            }
+            /*
+            else if(i == my_height - 1 && j == 0)
+            {
+                tempred = pixels[i-1][j].red + pixels[i-1][j+1].red + pixels[i][j+1].red + pixels[i][j].red;
+                tempgreen = pixels[i-1][j].green + pixels[i-1][j+1].green + pixels[i][j+1].green + pixels[i][j].green;
+                tempblue = pixels[i-1][j].blue + pixels[i-1][j+1].blue + pixels[i][j+1].blue + pixels[i][j].blue;
+
+                pixels[i][j].red = (unsigned char)round(tempred / 4);
+                pixels[i][j].green = (unsigned char)round(tempgreen / 4);
+                pixels[i][j].blue = (unsigned char)round(tempblue / 4);
+            }
+
+            else if(i == my_height - 1 && j == my_width -1)
+            {
+                tempred = pixels[i][j-1].red + pixels[i-1][j-1].red + pixels[i-1][j].red + pixels[i][j].red;
+                tempgreen = pixels[i][j-1].green + pixels[i-1][j-1].green + pixels[i-1][j].green + pixels[i][j].green;
+                tempblue = pixels[i][j-1].blue + pixels[i-1][j-1].blue + pixels[i-1][j].blue + pixels[i][j].blue;
+
+                pixels[i][j].red = (unsigned char)round(tempred / 4);
+                pixels[i][j].green = (unsigned char)round(tempgreen / 4);
+                pixels[i][j].blue = (unsigned char)round(tempblue / 4);
+            }*/
     }
-    std::cout<<"Wysokosc"<<0.5 * my_height - 0.5<<std::endl;
-    std::cout<<"Szerokosc"<<0.5 * my_width - 0.5<<std::endl;
     pixels.swap(temp);
 }
 
@@ -445,7 +482,7 @@ void Image::to_grayscale()
     {
         for (int j = 0; j < my_width; j++)
         {
-            avg = (unsigned char)round((pixels[i][j].red + pixels[i][j].green + pixels[i][j].blue) / 3);
+            avg = round((pixels[i][j].red + pixels[i][j].green + pixels[i][j].blue) / 3);
             pixels[i][j].red = avg;
             pixels[i][j].green = avg;
             pixels[i][j].blue = avg;
