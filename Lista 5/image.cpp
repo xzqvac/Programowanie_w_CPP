@@ -97,9 +97,9 @@ void Image::blurr()
                       pixels[i+1][j].blue + pixels[i+1][j-1].blue + pixels[i][j-1].blue + pixels[i-1][j-1].blue +
                       pixels[i][j].blue;
 
-               pixels[i][j].red = (unsigned char)round(tempred / 9);
-               pixels[i][j].green = (unsigned char)round(tempgreen / 9);
-               pixels[i][j].blue = (unsigned char)round(tempblue / 9);
+               pixels[i][j].red = round(tempred / 9);
+               pixels[i][j].green = round(tempgreen / 9);
+               pixels[i][j].blue = round(tempblue / 9);
            }
 
            else if(i == 0 && j == 0)
@@ -108,9 +108,9 @@ void Image::blurr()
                tempgreen = pixels[i][j+1].green + pixels[i+1][j+1].green + pixels[i+1][j].green + pixels[i][j].green;
                tempblue = pixels[i][j+1].blue + pixels[i+1][j+1].blue + pixels[i+1][j].blue + pixels[i][j].blue;
 
-               pixels[i][j].red = (unsigned char)round(tempred / 4);
-               pixels[i][j].green = (unsigned char)round(tempgreen / 4);
-               pixels[i][j].blue = (unsigned char)round(tempblue / 4);
+               pixels[i][j].red = round(tempred / 4);
+               pixels[i][j].green = round(tempgreen / 4);
+               pixels[i][j].blue = round(tempblue / 4);
            }
 
            else if(i == 0 && j == my_width -1)
@@ -119,9 +119,9 @@ void Image::blurr()
                tempgreen = pixels[i+1][j].green + pixels[i+1][j-1].green + pixels[i][j-1].green + pixels[i][j].green;
                tempblue = pixels[i+1][j].blue + pixels[i+1][j-1].blue + pixels[i][j-1].blue + pixels[i][j].blue;
 
-               pixels[i][j].red = (unsigned char)round(tempred / 4);
-               pixels[i][j].green = (unsigned char)round(tempgreen / 4);
-               pixels[i][j].blue = (unsigned char)round(tempblue / 4);
+               pixels[i][j].red = round(tempred / 4);
+               pixels[i][j].green = round(tempgreen / 4);
+               pixels[i][j].blue = round(tempblue / 4);
            }
 
            else if(i == my_height - 1 && j == 0)
@@ -130,9 +130,9 @@ void Image::blurr()
                tempgreen = pixels[i-1][j].green + pixels[i-1][j+1].green + pixels[i][j+1].green + pixels[i][j].green;
                tempblue = pixels[i-1][j].blue + pixels[i-1][j+1].blue + pixels[i][j+1].blue + pixels[i][j].blue;
 
-               pixels[i][j].red = (unsigned char)round(tempred / 4);
-               pixels[i][j].green = (unsigned char)round(tempgreen / 4);
-               pixels[i][j].blue = (unsigned char)round(tempblue / 4);
+               pixels[i][j].red = round(tempred / 4);
+               pixels[i][j].green = round(tempgreen / 4);
+               pixels[i][j].blue = round(tempblue / 4);
            }
 
            else if(i == my_height - 1 && j == my_width -1)
@@ -141,9 +141,9 @@ void Image::blurr()
                tempgreen = pixels[i][j-1].green + pixels[i-1][j-1].green + pixels[i-1][j].green + pixels[i][j].green;
                tempblue = pixels[i][j-1].blue + pixels[i-1][j-1].blue + pixels[i-1][j].blue + pixels[i][j].blue;
 
-               pixels[i][j].red = (unsigned char)round(tempred / 4);
-               pixels[i][j].green = (unsigned char)round(tempgreen / 4);
-               pixels[i][j].blue = (unsigned char)round(tempblue / 4);
+               pixels[i][j].red = round(tempred / 4);
+               pixels[i][j].green = round(tempgreen / 4);
+               pixels[i][j].blue = round(tempblue / 4);
            }
 
            else if(i == 0 && j >= 1 && j <= my_width - 1)
@@ -155,9 +155,9 @@ void Image::blurr()
                tempblue = pixels[i][j+1].blue + pixels[i+1][j+1].blue + pixels[i+1][j].blue + pixels[i+1][j+1].blue +
                        pixels[i][j-1].blue + pixels[i][j].blue;
 
-               pixels[i][j].red = (unsigned char)round(tempred / 6);
-               pixels[i][j].green = (unsigned char)round(tempgreen / 6);
-               pixels[i][j].blue = (unsigned char)round(tempblue / 6);
+               pixels[i][j].red = round(tempred / 6);
+               pixels[i][j].green = round(tempgreen / 6);
+               pixels[i][j].blue = round(tempblue / 6);
            }
 
            else if(i >= 1 && j == 0 && i <= my_height - 1)
@@ -169,9 +169,9 @@ void Image::blurr()
                tempblue = pixels[i-1][j].blue + pixels[i-1][j+1].blue + pixels[i][j+1].blue + pixels[i+1][j+1].blue +
                           pixels[i+1][j].blue + pixels[i][j].blue;
 
-               pixels[i][j].red = (unsigned char)round(tempred / 6);
-               pixels[i][j].green = (unsigned char)round(tempgreen / 6);
-               pixels[i][j].blue = (unsigned char)round(tempblue / 6);
+               pixels[i][j].red = round(tempred / 6);
+               pixels[i][j].green = round(tempgreen / 6);
+               pixels[i][j].blue = round(tempblue / 6);
            }
 
            else if(i == my_height - 1 && j >= 1 && j <= my_width - 1)
@@ -183,9 +183,9 @@ void Image::blurr()
                tempblue = pixels[i][j-1].blue + pixels[i-1][j-1].blue + pixels[i-1][j].blue + pixels[i-1][j+1].blue +
                           pixels[i][j+1].blue + pixels[i][j].blue;
 
-               pixels[i][j].red = (unsigned char)round(tempred / 6);
-               pixels[i][j].green = (unsigned char)round(tempgreen / 6);
-               pixels[i][j].blue = (unsigned char)round(tempblue / 6);
+               pixels[i][j].red = round(tempred / 6);
+               pixels[i][j].green = round(tempgreen / 6);
+               pixels[i][j].blue = round(tempblue / 6);
            }
 
            else
@@ -197,9 +197,9 @@ void Image::blurr()
                tempblue = pixels[i+1][j].blue + pixels[i+1][j+1].blue + pixels[i][j-1].blue + pixels[i-1][j-1].blue +
                           pixels[i-1][j].blue + pixels[i][j].blue;
 
-               pixels[i][j].red = (unsigned char)round(tempred / 6);
-               pixels[i][j].green = (unsigned char)round(tempgreen / 6);
-               pixels[i][j].blue = (unsigned char)round(tempblue / 6);
+               pixels[i][j].red = round(tempred / 6);
+               pixels[i][j].green = round(tempgreen / 6);
+               pixels[i][j].blue = round(tempblue / 6);
            }
         }
     }
@@ -437,39 +437,7 @@ void Image::shrink()
                 temp[i/2][j/2].green = avggreen;
                 temp[i/2][j/2].blue = avgblue;
             }
-
-            else if(i == 0 && j == my_width -1)
-            {
-                tempred = pixels[i+1][j].red + pixels[i+1][j-1].red + pixels[i][j-1].red + pixels[i][j].red;
-                tempgreen = pixels[i+1][j].green + pixels[i+1][j-1].green + pixels[i][j-1].green + pixels[i][j].green;
-                tempblue = pixels[i+1][j].blue + pixels[i+1][j-1].blue + pixels[i][j-1].blue + pixels[i][j].blue;
-
-                pixels[i][j].red = (unsigned char)round(tempred / 4);
-                pixels[i][j].green = (unsigned char)round(tempgreen / 4);
-                pixels[i][j].blue = (unsigned char)round(tempblue / 4);
-            }
-            /*
-            else if(i == my_height - 1 && j == 0)
-            {
-                tempred = pixels[i-1][j].red + pixels[i-1][j+1].red + pixels[i][j+1].red + pixels[i][j].red;
-                tempgreen = pixels[i-1][j].green + pixels[i-1][j+1].green + pixels[i][j+1].green + pixels[i][j].green;
-                tempblue = pixels[i-1][j].blue + pixels[i-1][j+1].blue + pixels[i][j+1].blue + pixels[i][j].blue;
-
-                pixels[i][j].red = (unsigned char)round(tempred / 4);
-                pixels[i][j].green = (unsigned char)round(tempgreen / 4);
-                pixels[i][j].blue = (unsigned char)round(tempblue / 4);
-            }
-
-            else if(i == my_height - 1 && j == my_width -1)
-            {
-                tempred = pixels[i][j-1].red + pixels[i-1][j-1].red + pixels[i-1][j].red + pixels[i][j].red;
-                tempgreen = pixels[i][j-1].green + pixels[i-1][j-1].green + pixels[i-1][j].green + pixels[i][j].green;
-                tempblue = pixels[i][j-1].blue + pixels[i-1][j-1].blue + pixels[i-1][j].blue + pixels[i][j].blue;
-
-                pixels[i][j].red = (unsigned char)round(tempred / 4);
-                pixels[i][j].green = (unsigned char)round(tempgreen / 4);
-                pixels[i][j].blue = (unsigned char)round(tempblue / 4);
-            }*/
+        }
     }
     pixels.swap(temp);
 }
