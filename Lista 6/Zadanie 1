@@ -87,7 +87,7 @@ void ii()
     Fraction x(0);
     for (int i = 1; i <= 20; i++)
     {
-        Fraction temp(pow(-1,i+1), i);
+        Fraction temp(i%2 ? -1 : 1, i);
         x += temp;
         if (i <= 5)
         {
