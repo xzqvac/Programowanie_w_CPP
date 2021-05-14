@@ -1,0 +1,80 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <utility>
+
+std::vector<int> continued_fraction(int n, double x) {
+    std::vector<int> cf;
+    int i = n - 1;
+    double number = x;
+    double u;
+    int a;
+    a = number;
+    u = 1 / (number - a);
+    cf.push_back(a);
+    while (i != 0)
+    {
+        number = u;
+        a = number;
+        u = 1 / (number - a);
+        cf.push_back(a);
+        i--;
+    }
+    for (int j : cf)
+    {
+        std::cout<<j<< ",";
+    }
+
+    return cf;
+}
+
+int sizeofvector(std::vector<int> vec)
+{
+    int size = vec.size()/vec[0];
+    return size;
+}
+
+void getFraction(std::vector<int> a, int size)
+{
+    double n = 1;
+    double d = a[size-1];
+    std::cout<<"\n";
+    for(int i = size - 2; i >= 1; i--)
+    {
+        double nextd = d*a[i] + n;
+        n = d;
+        d = nextd;
+        std::cout << "Denominator: " << d
+        << ", Numerator: " << n
+        << ", Decimal: " << (double)(d/n) << std::endl;
+    }
+}
+
+std::pair<int, int> getFraction(int a[], int size)
+{
+    int n = 1;
+    int d = a[size-1];
+    for(int i = size - 2; i >= 0; i--)
+    {
+        int nextd = d*a[i] + n;
+        n = d;
+        d = nextd;
+        std::cout << "Denominator: " << d
+                  << ", Numerator: " << n
+                  << ", Decimal: " << (double)(d/n) << std::endl;
+    }
+
+    return std::make_pair(d, n);
+}
+
+int main()
+{
+    getFraction(continued_fraction(10, exp(1)), 10);
+    getFraction(continued_fraction(11 ,((sqrt(5)+1)/2)), 11);
+
+
+    int a[] = {2,1,2,1,1,4,1,1,6,1,};
+    int size = sizeof(a)/sizeof(a[0]);
+    getFraction(a, size);
+
+}
