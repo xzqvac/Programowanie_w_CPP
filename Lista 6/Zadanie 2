@@ -53,7 +53,7 @@ void getFraction(std::vector<int> a, int size)
 int main()
 {
     getFraction(continued_fraction(10, exp(1)), 10);
-    getFraction(continued_fraction(11 ,((sqrt(5)+1)/2)), 11);
+    getFraction(continued_fraction(11 ,((sqrt(5)+1)/2)), 10);
 
 
     int a[] = {2,1,2,1,1,4,1,1,6,1,};
