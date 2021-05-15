@@ -50,23 +50,6 @@ void getFraction(std::vector<int> a, int size)
     }
 }
 
-std::pair<int, int> getFraction(int a[], int size)
-{
-    int n = 1;
-    int d = a[size-1];
-    for(int i = size - 2; i >= 0; i--)
-    {
-        int nextd = d*a[i] + n;
-        n = d;
-        d = nextd;
-        std::cout << "Denominator: " << d
-                  << ", Numerator: " << n
-                  << ", Decimal: " << (double)(d/n) << std::endl;
-    }
-
-    return std::make_pair(d, n);
-}
-
 int main()
 {
     getFraction(continued_fraction(10, exp(1)), 10);
