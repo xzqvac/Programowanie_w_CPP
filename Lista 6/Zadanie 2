@@ -1,16 +1,13 @@
 #include <iostream>
-#include <cmath>
 #include <vector>
-#include <utility>
+#include <cmath>
 
 std::vector<int> continued_fraction(int n, double x) {
     std::vector<int> cf;
     int i = n - 1;
     double number = x;
-    double u;
-    int a;
-    a = number;
-    u = 1 / (number - a);
+    int a = number;
+    double u = 1 / (number - a);
     cf.push_back(a);
     while (i != 0)
     {
@@ -20,44 +17,51 @@ std::vector<int> continued_fraction(int n, double x) {
         cf.push_back(a);
         i--;
     }
-    for (int j : cf)
-    {
-        std::cout<<j<< ",";
-    }
-
     return cf;
 }
 
-int sizeofvector(std::vector<int> vec)
+void converting(std::vector<int> a, int size)
 {
-    int size = vec.size()/vec[0];
-    return size;
-}
-
-void getFraction(std::vector<int> a, int size)
-{
-    double n = 1;
-    double d = a[size-1];
-    std::cout<<"\n";
-    for(int i = size - 2; i >= 1; i--)
+    int pm = 0;
+    int qm = 0;
+    std::vector<int> ptable;
+    std::vector<int> qtable;
+    for(int i = 0; i<size; i++)
     {
-        double nextd = d*a[i] + n;
-        n = d;
-        d = nextd;
-        std::cout << "Denominator: " << d
-        << ", Numerator: " << n
-        << ", Decimal: " << (double)(d/n) << std::endl;
+        if (i == 0)
+        {
+            pm = a[i];
+            ptable.push_back(pm);
+            qm = 1;
+            qtable.push_back(qm);
+            std::cout << pm << "/" << qm << " " << (double)pm/qm << std::endl;
+        }
+        else if (i == 1)
+        {
+            pm = a[i] * ptable[i-1] + 1;
+            ptable.push_back(pm);
+            qm = a[i] * qtable[i-1];
+            qtable.push_back(qm);
+            std::cout << pm << "/" << qm << " " << (double)pm/qm << std::endl;
+        }
+        else
+        {
+            pm = a[i] * ptable[i-1] + ptable[i-2];
+            ptable.push_back(pm);
+            qm = a[i] * qtable[i-1] + qtable[i-2];
+            qtable.push_back(qm);
+            std::cout << pm << "/" << qm << " " << (double)pm/qm << std::endl;
+        }
     }
 }
 
 int main()
 {
-    getFraction(continued_fraction(10, exp(1)), 10);
-    getFraction(continued_fraction(11 ,((sqrt(5)+1)/2)), 10);
-
-
-    int a[] = {2,1,2,1,1,4,1,1,6,1,};
-    int size = sizeof(a)/sizeof(a[0]);
-    getFraction(a, size);
-
+    std::cout<<"Przyklad a"<<std::endl;
+    std::vector<int> a = continued_fraction(10, ((sqrt(5)+1)/2));
+    converting(a, 10);
+    std::cout<<std::endl;
+    std::cout<<"Przyklad b"<<std::endl;
+    std::vector<int> b = continued_fraction(10, exp(1));
+    converting(b, 10);
 }
