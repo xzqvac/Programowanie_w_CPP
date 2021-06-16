@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+
+
+int main()
+{
+
+    std::fstream myfile;
+    std::ofstream zapis("rozwiazanie.txt");
+
+    std::vector<std::string> x;
+    std::string wyraz, rozwiazanie, funkcja, litera;
+    int dlugoscNapisu = 0;
+
+    myfile.open("pliki/instrukcje.txt", std::ios::in);
+    if (myfile.good())
+    {
+        if (myfile.is_open())
+        {
+            while(myfile >> wyraz)
+            {
+                x.push_back(wyraz);
+            }
+            int dopisz = std::count_if(begin(x), end(x), [](const std::string& k) {return k == "DOPISZ";});
+            int usun = std::count_if(begin(x), end(x), [](const std::string& k) {return k == "USUN";});
+            dlugoscNapisu = dopisz - usun;
+            std::cout << "Zadanie 4.1 - dlugosc: " << dlugoscNapisu << std::endl;
+        }
+        for(int i = 0; i < x.size() - 1; i++)
+        {
+            funkcja = x[i];
+            litera = x[i + 1];
+
+            if(funkcja == "DOPISZ")
+                rozwiazanie.append(litera);
+
+            else if(funkcja == "USUN")
+                rozwiazanie.pop_back();
+
+            else if(funkcja == "ZMIEN")
+            {
+                rozwiazanie.pop_back();
+                rozwiazanie.append(litera);
+            }
+            else if(funkcja == "PRZESUN")
+            {
+                char znak;
+                int pozycjaLitery = rozwiazanie.find_first_of(litera);
+
+                if (pozycjaLitery >= 0)
+                {
+                    char *char_arr;
+                    char_arr = &litera[0];
+                    int kod = int(char_arr[0]);
+                    znak = 'A' + (kod - 38) % 26;
+                    std::swap(rozwiazanie[pozycjaLitery], znak);
+                }
+            }
+        }
+    }
+    else
+    {
+        std::cout << "Mamy problem z otworzeniem pliku" << std::endl;
+    }
+    zapis<<rozwiazanie;
+
+    std::cout<<"Zadanie 4.4 - rozwiazanie: " << rozwiazanie << std::endl;
+    myfile.close();
+
+    return 0;
+}
