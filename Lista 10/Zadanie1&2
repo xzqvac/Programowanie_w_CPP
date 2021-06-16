@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+#include <stdlib.h>
+#include <time.h>
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec)
+{
+    for (int i = 0; i < vec.size(); i++)
+    {
+        out << vec[i] << ", ";
+    }
+    return out;
+}
+
+int main()
+{
+    std::vector<int> vec1(10);
+    std::vector<int> vec2(10);
+
+    std::iota(vec1.begin(), vec1.end(),0); //increment every value by 1 from beginning to end of vector, starts with 0
+    std::cout << vec1 << std::endl;
+
+    int sum = std::accumulate(vec1.begin(), vec1.end(), 0); //sum every value from beginning to end of vector, starting sum is equal zero
+    std::cout << sum << std::endl;
+
+    std::transform(vec1.cbegin(), vec1.cend(), vec1.begin(), [](int n) { return n*n;});
+    std::cout << vec1 << std::endl;
+
+    srand(time(NULL));
+    std::generate(vec2.begin(), vec2.end(), [](int n= rand() % 15) { return n;});
+    std::cout << vec2 << std::endl;
+
+    int result = *std::max_element(vec2.begin(), vec2.end(),[](int n, int m) { return n<m;});
+    std::cout << result << std::endl;
+
+    std::sort(vec2.begin(), vec2.end());
+    std::cout << "Sorted vector: " << vec2 << std::endl;
+
+    std::unique(vec2.begin(), vec2.end());
+    std::cout<<"Unique elements at start: " << vec2 << std::endl;
+
+    std::sort(vec2.begin(), vec2.end());
+    vec2.erase(std::unique(vec2.begin(), vec2.end()), vec2.end());
+    std::cout << "Erase: " << vec2 << std::endl;
+
+    std::cout <<"pierwszy"<<vec1<<"drugi" << vec2 << std::endl;
+    std::vector<int> vec3;
+    std::set_intersection(vec1.begin(), vec1.end(),vec2.begin(), vec2.end(),std::back_inserter(vec3));
+    std::cout << vec3 << ' ';
+}
