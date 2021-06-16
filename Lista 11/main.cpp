@@ -12,33 +12,33 @@ void run(int argc, const char* argv[])
     char_arr = &mathSign[0];
 
     int obj = int(char_arr[0]);
-    std::cout<< obj << std::endl;
+    std::cout << obj << std::endl;
 
 
     switch(obj)
     {
-        case 43:
+        case '+':
             result = myint1 + myint2;
             break;
-        case 45:
+        case '-':
             result = myint1 - myint2;
             break;
-        case 47:
+        case '/':
             result = myint1 / myint2;
             break;
-        case 42:
+        case '*':
             result = myint1 * myint2;
             break;
-        case 37:
+        case '%':
             result = myint1 % myint2;
             break;
-        case 38:
+        case '&':
             result = myint1 & myint2;
             break;
-        case 124:
+        case '|':
             result = myint1 | myint2;
             break;
-        case 94:
+        case '^':
             result = myint1 ^ myint2;
             break;
     }
