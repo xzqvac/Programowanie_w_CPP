@@ -3,49 +3,76 @@
 
 void run(int argc, const char* argv[])
 {
-    int myint1 = std::stoi(argv[1]);
-    int myint2 = std::stoi(argv[3]);
+    int numberOne;
+    int numberTwo;
     int result = 0;
 
-    char* char_arr;
-    std::string mathSign(argv[2]);
-    char_arr = &mathSign[0];
-
-    int obj = int(char_arr[0]);
-    std::cout << obj << std::endl;
-
-
-    switch(obj)
+    try
     {
-        case '+':
-            result = myint1 + myint2;
-            break;
-        case '-':
-            result = myint1 - myint2;
-            break;
-        case '/':
-            result = myint1 / myint2;
-            break;
-        case '*':
-            result = myint1 * myint2;
-            break;
-        case '%':
-            result = myint1 % myint2;
-            break;
-        case '&':
-            result = myint1 & myint2;
-            break;
-        case '|':
-            result = myint1 | myint2;
-            break;
-        case '^':
-            result = myint1 ^ myint2;
-            break;
+        numberOne = std::stoi(argv[1]);
+        numberTwo = std::stoi(argv[3]);
     }
-    std::cout<< result << std::endl;
+
+    catch (std::logic_error &ex)
+    {
+        throw std::logic_error("Podano niewlasciwe argumenty");
+    }
+
+        unsigned int sign = int(*argv[2]);
+
+        if (argc == 4)
+        {
+            switch (sign)
+            {
+                case '+':
+                    result = numberOne + numberTwo;
+                    break;
+                case '-':
+                    result = numberOne - numberTwo;
+                    break;
+                case '/':
+                    if (numberTwo != 0)
+                        result = numberOne / numberTwo;
+                    else
+                        throw std::logic_error("Nie mozna dzielic przez zero");
+                    break;
+                case '*':
+                    result = numberOne * numberTwo;
+                    break;
+                case '%':
+                    if (numberTwo != 0)
+                        result = numberOne / numberTwo;
+                    else
+                        throw std::logic_error("Nie mozna dzielic przez zero");
+                    break;
+                case '&':
+                    result = numberOne & numberTwo;
+                    break;
+                case '|':
+                    result = numberOne | numberTwo;
+                    break;
+                case '^':
+                    result = numberOne ^ numberTwo;
+                    break;
+                default:
+                    break;
+            }
+            std::cout << result << std::endl;
+        }
+        else
+            throw std::logic_error("Niewlasciwa liczba argumentow");
 }
 
-int main(int argc, const char* argv[]) {
-    run(argc, argv);
+int main(int argc, const char* argv[])
+{
+    try
+    {
+       run(argc, argv);
+    }
+
+    catch(std::logic_error &ex)
+    {
+        std::cout << ex.what() << std::endl;
+    }
     return 0;
 }
