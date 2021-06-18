@@ -55,6 +55,7 @@ void run(int argc, const char* argv[])
                     result = numberOne ^ numberTwo;
                     break;
                 default:
+                    throw std::logic_error("Zly operator");
                     break;
             }
             std::cout << result << std::endl;
